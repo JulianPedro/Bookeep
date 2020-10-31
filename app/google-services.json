@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "749082807139",
+    "firebase_url": "https://bookeep-fce07.firebaseio.com",
+    "project_id": "bookeep-fce07",
+    "storage_bucket": "bookeep-fce07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749082807139:android:6e2f582bd2347d6fa3a156",
+        "android_client_info": {
+          "package_name": "br.unigran.bookeep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749082807139-dbed9j3d09ounrcoh8cej8l9iffb56hc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.unigran.bookeep",
+            "certificate_hash": "cfbbfc3c2493da6b06f1608aeae1f01181e4a35a"
+          }
+        },
+        {
+          "client_id": "749082807139-umbuho1i4agl1sj9deg7jm9phcgt3s0j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeTxrUnxrqBiJPRJyhHkRr1wf_ZFX_8Q0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749082807139-umbuho1i4agl1sj9deg7jm9phcgt3s0j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
