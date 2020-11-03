@@ -1,35 +1,84 @@
 package br.unigran.bookeep;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import br.unigran.bookeep.domain.Book;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+
+    private ListView listBook;
+    private List<Book> books = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        listBook = findViewById(R.layout.activity_main);
+        initFireBase();
+    }
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+    public void initBooks(List<Book> books) {
+        RecyclerView recyclerView = findViewById(R.id.recycleViewBooks);
+        BookAdapter bookAdapter = new BookAdapter(books, this);
+        recyclerView.setAdapter(bookAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                books.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Book book = postSnapshot.getValue(Book.class);
+                    books.add(book);
+                }
+                initBooks(books);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+    }
+
+    private void initFireBase() {
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase =  FirebaseDatabase.getInstance();
+        firebaseDatabase.setPersistenceEnabled(true);
+        databaseReference = firebaseDatabase.getReference("Book");
     }
 
     @Override
@@ -52,5 +101,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addBook(View view){
+        Intent intent = new Intent(MainActivity.this, RegisterBook.class);
+        startActivityForResult(intent,121);
     }
 }
