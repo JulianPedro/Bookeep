@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bookeep">
         <activity
-            android:name=".MainActivity"
+            android:name=".Login"
             android:label="@string/app_name"
             android:theme="@style/Theme.Bookeep.NoActionBar">
             <intent-filter>
@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".RegisterBook"></activity>
     </application>
 
